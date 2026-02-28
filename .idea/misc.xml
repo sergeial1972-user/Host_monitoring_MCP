@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="uv (host_monitoring_MCP)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="uv (host_monitoring_MCP)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="uv (Host_monitoring_MCP)" project-jdk-type="Python SDK" />
 </project>
