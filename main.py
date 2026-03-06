@@ -1,9 +1,15 @@
+#imports
 import requests
 from http import HTTPStatus
 from mcp.server.fastmcp import FastMCP
+import asyncio
+from dotenv import load_dotenv
+import os
+
+#dotenv
+load_dotenv()
 
 mcp = FastMCP("HostMonitoring")
-
 
 @mcp.tool()
 def check_host(host: str) -> dict:
@@ -13,22 +19,14 @@ def check_host(host: str) -> dict:
         host: Full URL (https://example.com)
     """
     try:
-        response = requests.get(host, timeout=10)
+        response = requests.get(host, timeout=os.getenv('TIMEOUT', 10))
         return {
             "status": response.status_code,
             "phrase": response.reason
         }
     except requests.exceptions.RequestException as e:
         return {"error": str(e)}
-@mcp.tool()
-def check_host(host: str) -> dict:
 
-    try:
-        response = requests.get(host, timeout=10)
-        return {
-            "status": response.status_code,
-            "phrase": response.reason  # или "OK" для успеха
-        }
-    except requests.exceptions.RequestException as e:
-        return {"error": str(e)}
-
+if __name__ == "__main__":
+    transport = os.getenv("TRANSPORT", "streamable-http")
+    mcp.run(transport=transport)
