@@ -3,13 +3,14 @@ import requests
 from http import HTTPStatus
 from mcp.server.fastmcp import FastMCP
 import asyncio
+#
 from dotenv import load_dotenv
 import os
 
 #dotenv
 load_dotenv()
 
-mcp = FastMCP("HostMonitoring")
+mcp = FastMCP("HostMonitoring", host=os.getenv("HOST", "0.0.0.0"), port=int(os.getenv("PORT", 8080)))
 
 @mcp.tool()
 def check_host(host: str) -> dict:

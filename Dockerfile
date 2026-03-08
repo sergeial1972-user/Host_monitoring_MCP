@@ -3,9 +3,18 @@ WORKDIR /app
 LABEL authors="Sergeial1972-user"
 
 COPY requirements.txt ./
+COPY main.py ./
 
-RUN python3 -m venv --without-pip venv
-RUN pip install --no-cache-dir -r requirements.txt
+RUN python3 -m venv venv
+RUN . venv/bin/activate && pip install --no-cache-dir -r requirements.txt
 
+#ENV vars
+#transport [streamable-http, ]
+ENV TRANSPORT=streamable-http
 
-ENTRYPOINT ["top", "-b"]
+ENV HOST=0.0.0.0
+ENV PORT=8080
+
+ENV TIMEOUT=10
+
+ENTRYPOINT ["./venv/bin/python", "main.py"]
